@@ -28,6 +28,7 @@ describe Squid::Configuration do
   it_behaves_like 'a configurable setting', method: 'labels',      env: 'SQUID_LABELS',      default: [],         sample_value: sample_true
   it_behaves_like 'a configurable setting', method: 'legend',      env: 'SQUID_LEGEND',      default: true,       sample_value: sample_false
   it_behaves_like 'a configurable setting', method: 'line_widths', env: 'SQUID_LINE_WIDTHS', default: []   ,      sample_value: '4'
+  it_behaves_like 'a configurable setting', method: 'col_max_width', env: 'SQUID_COL_MAX_WIDTH', default: 0,      sample_value: '20'
   it_behaves_like 'a configurable setting', method: 'steps',       env: 'SQUID_STEPS',       default: 4,          sample_value: '0'
   it_behaves_like 'a configurable setting', method: 'ticks',       env: 'SQUID_TICKS',       default: true,       sample_value: sample_false
   it_behaves_like 'a configurable setting', method: 'type',        env: 'SQUID_TYPE',        default: :column,    sample_value: 'line'

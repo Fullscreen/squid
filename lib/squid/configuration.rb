@@ -59,6 +59,7 @@ module Squid
       labels:       {as: array(boolean)},
       legend:       {as: boolean,        default: 'true'},
       line_widths:  {as: array(float)},
+      col_max_width: {as: integer,       default: '0'},
       steps:        {as: integer,        default: '4'},
       ticks:        {as: boolean,        default: 'true'},
       type:         {as: symbol,         default: 'column'},

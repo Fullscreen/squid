@@ -13,11 +13,11 @@ module Squid
   class Graph
     extend Settings
     has_settings :baseline, :border, :chart, :colors, :every, :formats, :height
-    has_settings :legend, :line_widths, :steps, :ticks, :type, :labels
+    has_settings :legend, :line_widths, :col_max_width, :steps, :ticks, :type, :labels
 
     def initialize(document, data = {}, settings = {})
       @data, @settings = data, settings
-      @plot = Plotter.new document, bottom: bottom
+      @plot = Plotter.new document, bottom: bottom, col_max_width: settings[:col_max_width]
       @plot.paddings = {left: left.width, right: right.width} if @data.any?
     end
 

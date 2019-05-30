@@ -7,9 +7,10 @@ module Squid
   class Plotter
     attr_accessor :paddings
     # @param [Prawn::Document] a PDF document to wrap in a Plotter instance.
-    def initialize(pdf, bottom:)
+    def initialize(pdf, bottom:, col_max_width: 0)
       @pdf = pdf
       @bottom = bottom
+      @col_max_width = col_max_width || 0
     end
 
     # Draws a bounding box of the given height, rendering the block inside it.
@@ -96,7 +97,12 @@ module Squid
     def stacks(series, options = {})
       items(series, options.merge(fill: true)) do |point, w, i, padding|
         x, y = point.index*w + padding + left, point.y + @bottom
-        @pdf.fill_rectangle [x, y], w - 2*padding, point.height
+        w -= 2 * padding
+        if @col_max_width > 0 && @col_max_width < w
+          x += (w - @col_max_width) / 2
+          w = @col_max_width
+        end
+        @pdf.fill_rectangle [x, y], w, point.height
       end
     end
 
@@ -104,6 +110,10 @@ module Squid
       items(series, options.merge(fill: true, count: series.size)) do |point, w, i, padding|
         item_w = (w - 2 * padding)/ series.size
         x, y = point.index*w + padding + left + i*item_w, point.y + @bottom
+        if @col_max_width > 0 && @col_max_width < item_w
+          x += (item_w - @col_max_width) / 2
+          item_w = @col_max_width
+        end
         @pdf.fill_rectangle [x, y], item_w, point.height
       end
     end

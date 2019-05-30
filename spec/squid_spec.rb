@@ -55,6 +55,16 @@ describe 'Prawn::Document#chart' do
       end
     end
 
+    context 'given the :col_max_width is set to a value greater than zero' do
+      let(:maximum) { 20 }
+      let(:settings) { options.merge col_max_width: maximum }
+
+      it 'creates the columns within the specified width' do
+        widths = rectangles_of(chart).map{ |r| r[:width] }
+        expect(widths[0]).to eq maximum
+      end
+    end
+
     context 'given the series has nil values' do
       let(:values) { {2013 => -50, 2014 => nil, 2015 => 20} }
 
@@ -143,6 +153,16 @@ describe 'Prawn::Document#chart' do
 
       it 'includes as many stacks as the number of values' do
         expect(rectangles_of(chart).map{|r| r[:point].first}.uniq.size).to be 3
+      end
+
+      context 'given the :col_max_width is set to a value greater than zero' do
+        let(:maximum) { 20 }
+        let(:settings) { options.merge type: :stack, col_max_width: maximum }
+
+        it 'creates the columns within the specified width' do
+          widths = rectangles_of(chart).map{ |r| r[:width] }
+          expect(widths[0]).to eq maximum
+        end
       end
     end
 

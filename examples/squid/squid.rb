@@ -17,6 +17,7 @@ Prawn::ManualBuilder::Example.generate 'squid.pdf' do
     p.section 'Basics' do |s|
       s.example 'basic'
       s.example 'legend'
+      s.example 'col_max_width'
     end
 
     p.section 'Chart types' do |s|
