@@ -46,6 +46,7 @@ module Squid
 
     def max
       if @data.any? && values.last && values.last.any?
+        return 0 if min < 0 && values.last.max <= 0
         closest_step_to values.last.max
       end
     end

@@ -99,4 +99,29 @@ describe Squid::Axis do
       it { expect(width).to eq 14 }
     end
   end
+
+  describe '#minmax' do
+    subject(:axis) { Squid::Axis.new series, options }
+    let(:minmax) { axis.minmax }
+
+    describe 'given all-zero series' do
+      let(:series) { [0, 0, 0] }
+      it { expect(minmax).to eq [0, steps] }
+    end
+
+    describe 'given positive series' do
+      let(:series) { [0, 10, 12] }
+      it { expect(minmax).to eq [0, 12] }
+    end
+
+    describe 'given negative series' do
+      let(:series) { [0, -10, -12] }
+      it { expect(minmax).to eq [-12, 0] }
+    end
+
+    describe 'given mixed series' do
+      let(:series) { [0, -10, 12] }
+      it { expect(minmax).to eq [-10, 12] }
+    end
+  end
 end
