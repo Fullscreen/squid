@@ -9,7 +9,7 @@ describe Squid::AxisLabel do
   let(:width) { 50 }
 
   describe '.for' do
-    subject(:axis_labels) { Squid::AxisLabel.for axis, options }
+    subject(:axis_labels) { Squid::AxisLabel.for axis, **options }
 
     it 'returns an instance for each label, with vertically distributed y between 0 and height' do
       expect(axis_labels.map &:label).to eq labels

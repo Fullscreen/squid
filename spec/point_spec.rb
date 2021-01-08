@@ -10,7 +10,7 @@ describe Squid::Point do
   let(:series) { [[-10.0, 109.9, 30.0], [nil, 20.0, -50.0]] }
 
   describe '.for' do
-    subject(:points) { Squid::Point.for series, options }
+    subject(:points) { Squid::Point.for series, **options }
 
     it 'calculates the height considering each value within minmax, relative to the height' do
       expect(points.first.map &:height).to eq [-5.0, 54.95, 15.0]

@@ -43,7 +43,7 @@ module Squid
 
     def draw_gridlines
       options = {height: grid_height, count: steps, skip_baseline: baseline}
-      Gridline.for(options).each do |line|
+      Gridline.for(**options).each do |line|
         @plot.horizontal_line line.y, line_width: 0.5, transparency: 0.25
       end
     end
@@ -68,7 +68,7 @@ module Squid
       args = {minmax: axis.minmax, height: grid_height, stack: stack?}
       args[:labels] = items_of labels, skip_first_if: second_axis
       args[:formats] = items_of formats, skip_first_if: second_axis
-      points = Point.for axis.data, args
+      points = Point.for axis.data, **args
       options = {colors: colors, starting_at: (second_axis ? 1: 0)}
       case (second_axis ? :column : type)
         when :point then @plot.points points, options
@@ -97,7 +97,7 @@ module Squid
     def axis(first:, last:)
       series = @data.values[first, last].map(&:values)
       options = {steps: steps, stack: stack?, format: formats[first]}
-      Axis.new(series, options) {|label| @plot.width_of label}
+      Axis.new(series, **options) {|label| @plot.width_of label}
     end
 
     def bottom
